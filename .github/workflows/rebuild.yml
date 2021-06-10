@@ -8,6 +8,7 @@ jobs:
   rebuild:
     name: Rebuild
     if: github.event.issue.pull_request =! '' && contains(github.event.comment.body, '/rebuild')
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Version
