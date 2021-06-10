@@ -1,0 +1,22 @@
+name: Rebuild
+
+on:
+  issue_comment:
+    type: [created]
+
+jobs:
+  rebuild:
+    name: Rebuild
+    if: github.event.issue.pull_request =! '' && contains(github.event.comment.body, '/rebuild')
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Version
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.300
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build
+    - name: Result
+      run: echo "Rebuild finished"
